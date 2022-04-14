@@ -110,7 +110,7 @@ class UI(QMainWindow):
                     self.messages.append('Please fill the up bound field!')
                     return
                 else:
-                    ub=float(self.upboundText.text())
+                    ub=self.upboundText.text()
             self.run(func,ub,lb,eps,it)
 
         except:
@@ -148,7 +148,7 @@ class UI(QMainWindow):
         if method is None:
             method=self.combomethod.currentText()
         if method in ['Bisection Method','Regula Falsi Method']:
-            bracket=brm.BracketingMethod(fun,upbound,lowbound,maxIter=maxit,eps=eps)
+            bracket=brm.BracketingMethod(fun,float(upbound),lowbound,maxIter=maxit,eps=eps)
         else:
             OpenM=om.openMethod(fun,lowbound,maxIter=maxit,eps=eps)
         if method=='Bisection Method':
@@ -159,7 +159,7 @@ class UI(QMainWindow):
             table, xr, flag = bracket.regulaFalsi()
         elif method == 'Secant Method':
             start=time.time()
-            table, xr, flag = OpenM.secant(lowbound,upbound)
+            table, xr, flag = OpenM.secant(lowbound,float(upbound))
         elif method == 'Newton Method':
             start=time.time()
             table, xr, flag = OpenM.newtonian()
