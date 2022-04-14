@@ -82,7 +82,7 @@ class BracketingMethod:
                 xr = float(self.upbound-self.f(self.upbound)*(self.lowbound -self.upbound)/(self.f(self.lowbound)-self.f(self.upbound)))
                 fxr = self.f(xr)
                 error=abs(xr-xrOld)/xr*100
-                row = [iter,self.upbound, self.lowbound, xr, fxr,round(abs(error),2)]
+                row = [iter,str(self.upbound), str(self.lowbound), str(xr), str(fxr), str(abs(error))]
                 table.append(row)
                 if (self.upbound - self.lowbound)<self.eps or abs(fxr)<self.eps:
                     return table, xr, true
@@ -102,3 +102,4 @@ class BracketingMethod:
         except:
             print('Error while computing bisection!')
             return [], 0.0, false
+lol=BracketingMethod('(x-2.5)*(x+1.25)',2,3,maxIter=50,eps=1e-3)

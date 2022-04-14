@@ -1,5 +1,4 @@
 from sympy import *
-import math
 class openMethod:
 
     def __init__(self, fun='', initguess=0,x='x', maxIter=50, eps=1e-5):
@@ -67,18 +66,17 @@ class openMethod:
 
     def secant(self,x0,x1):
         try:
-            table, row = [['i', 'Xi-1','Xi','Xi+1','f(Xi+1)' 'relative_error']], []
+            table, row = [['i', 'Xi-1','Xi','Xi+1','f(Xi+1)', 'relative_error']], []
             iter,x2=0,0
             while iter < self.maxIter:
                 iter += 1
                 x2 = x1 - (x1 - x0) * float(self.f(x1))/float((self.f(x1)-self.f(x0)))
                 error = abs(x2 - x1)
-                row = [iter, x0,x1,x2,self.f(x2), error]
+                row = [iter, x0,x1,x2,str(self.f(x2)), error]
                 table.append(row)
                 if error< self.eps: break
                 x0 = x1
                 x1=x2
-                print(x1,x0)
             return table, x2, true
         except:
             return [], 0.0, false
