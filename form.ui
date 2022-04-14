@@ -188,13 +188,22 @@
    <property name="geometry">
     <rect>
      <x>230</x>
-     <y>720</y>
-     <width>67</width>
-     <height>21</height>
+     <y>710</y>
+     <width>71</width>
+     <height>41</height>
     </rect>
    </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
    <property name="text">
-    <string>Up bound</string>
+    <string>Up bound g(x)</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="QLabel" name="label_4">
@@ -326,9 +335,9 @@
   <widget class="QLabel" name="Lestimatedroot">
    <property name="geometry">
     <rect>
-     <x>600</x>
-     <y>640</y>
-     <width>81</width>
+     <x>580</x>
+     <y>650</y>
+     <width>101</width>
      <height>21</height>
     </rect>
    </property>
@@ -339,9 +348,9 @@
   <widget class="QLabel" name="Lexactroot">
    <property name="geometry">
     <rect>
-     <x>600</x>
-     <y>710</y>
-     <width>81</width>
+     <x>580</x>
+     <y>720</y>
+     <width>101</width>
      <height>21</height>
     </rect>
    </property>
@@ -352,9 +361,9 @@
   <widget class="QLabel" name="Ltime">
    <property name="geometry">
     <rect>
-     <x>600</x>
+     <x>580</x>
      <y>580</y>
-     <width>81</width>
+     <width>101</width>
      <height>21</height>
     </rect>
    </property>

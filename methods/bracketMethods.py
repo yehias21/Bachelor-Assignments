@@ -36,7 +36,7 @@ class BracketingMethod:
         try:
             # create the table
             iterNum=self.iterNum()
-            table,row = [['i,''Xu', 'Xl', 'Xr', 'F(Xr)', 'relative_error']],[]
+            table,row = [['i','Xu', 'Xl', 'Xr', 'F(Xr)', 'relative_error']],[]
             if self.isvalid():
                 return table, 0.0, false
             elif self.isroot(self.f(self.upbound)) :
@@ -48,20 +48,20 @@ class BracketingMethod:
                 xr = (self.upbound + self.lowbound)/2
                 fxr = self.f(xr)
                 error=abs(xr-xrOld)/xr*100
-                row = [iter,self.upbound, self.lowbound, xr, fxr, abs(error)]
+                row = [iter,str(self.upbound), str(self.lowbound), str(xr), str(fxr), str(abs(error))]
                 table.append(row)
                 if fxr * self.f(self.upbound) < 0:
                     self.lowbound = xr
                 elif fxr * self.f(self.lowbound) < 0:
                     self.upbound = xr
                 elif self.isroot(fxr) :
-                    table[1][-1] = None
+                    table[1][-1] = ''
                     return table, xr, true
                 else:
                     print('Two root existed or function is not continous!')
                     return [], 0.0, false
                 xrOld=xr
-            table[1][-1]=None
+            table[1][-1]=''
             return table, xr, true
         except:
             print('Error while computing bisection!')

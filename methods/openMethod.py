@@ -82,5 +82,3 @@ class openMethod:
             return table, x2, true
         except:
             return [], 0.0, false
-op = openMethod('x^2-2*x+1',-2,'x',50)
-print(op.secant(-1,6))

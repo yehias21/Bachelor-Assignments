@@ -1,4 +1,4 @@
-import sys,pyqtgraph as pg
+import sys,pyqtgraph as pg,methods.bracketMethods as brm ,methods.openMethod as om,time,methods.grapher as grp
 from csv import reader
 from PyQt5.QtWidgets import (QApplication, QLineEdit, QMainWindow,QComboBox,QLabel,
 QPushButton,QGraphicsView,QGraphicsScene,QTableView,QTextEdit,QRadioButton,QCheckBox)
@@ -32,6 +32,7 @@ class UI(QMainWindow):
         loadUi("form.ui", self)
         self.signalsAndslots()
         self.show()
+        # self.run()
     def signalsAndslots(self):
         # initialize Qvar# import sys,pyqtgraph as pg
 
@@ -41,6 +42,7 @@ class UI(QMainWindow):
         self.maxiterText=self.findChild(QLineEdit,"LEmaxiter")
         self.filepathText=self.findChild(QLineEdit,"LEfilepath")
         self.func=self.findChild(QLineEdit,"LEfunc")
+        self.timeit=self.findChild(QLabel,'Ltime')
         self.estimatedrootLabel=self.findChild(QLabel,'Lestimatedroot')
         self.exactrootLabel=self.findChild(QLabel,'Lexactroot')
         self.readfile=self.findChild(QPushButton,"BTreadfile")
@@ -63,10 +65,10 @@ class UI(QMainWindow):
         self.filepathText.setDisabled(True)
         self.readfile.setDisabled(True)
     def comboboxchanged(self):
-        if self.combomethod.currentText() in ['Bisection Method','Regula Falsi Method','Secant Method']:
-            self.upboundText.setDisabled(False)
-        else:
+        if self.combomethod.currentText() =='Newton Method':
             self.upboundText.setDisabled(True)
+        else:
+            self.upboundText.setDisabled(False)
     def computepushed(self):
         self.messages.setText('')
         try:
@@ -109,7 +111,6 @@ class UI(QMainWindow):
                     return
                 else:
                     ub=float(self.upboundText.text())
-
             self.run(func,ub,lb,eps,it)
 
         except:
@@ -141,13 +142,50 @@ class UI(QMainWindow):
             self.messages.setText('')
             self.filepathText.setText('')
             self.scene.clear()
+
     def run(self,fun,upbound,lowbound,eps=1e-5,maxit=50,method=None):
-        plotted = pg.PlotWidget()
-        self.scene.clear()
-        # x,y=,
-        plotted.plot(x, y, pen='r')
-        plotted.showGrid(x=True, y=True)
-        self.scene.addWidget(plotted)
+        flag,xr,table,start=False,0,[[]],-1
+        if method is None:
+            method=self.combomethod.currentText()
+        if method in ['Bisection Method','Regula Falsi Method']:
+            bracket=brm.BracketingMethod(fun,upbound,lowbound,maxIter=maxit,eps=eps)
+        else:
+            OpenM=om.openMethod(fun,lowbound,maxIter=maxit,eps=eps)
+        if method=='Bisection Method':
+            start=time.time()
+            table,xr,flag=bracket.bisection()
+        elif method == 'Regula Falsi Method':
+            start=time.time()
+            table, xr, flag = bracket.regulaFalsi()
+        elif method == 'Secant Method':
+            start=time.time()
+            table, xr, flag = OpenM.secant(lowbound,upbound)
+        elif method == 'Newton Method':
+            start=time.time()
+            table, xr, flag = OpenM.newtonian()
+        else:
+            start=time.time()
+            table, xr, flag = OpenM.fixedPoint(upbound)
+        elapsed=time.time()-start
+        if not flag:
+            self.messages.setText('Can not calculate the root!')
+        x,y,exact,yr=grp.grapher(fun,xr)
+        self.timeit.setText(str(elapsed))
+        self.timeit.adjustSize()
+        # self.exactrootLabel.setText(''.join(exact))
+        # self.exactrootLabel.adjustSize()
+        self.estimatedrootLabel.setText(str(xr))
+        self.estimatedrootLabel.adjustSize()
+
+        if self.fastmode.isChecked():
+            plotted = pg.PlotWidget()
+            self.scene.clear()
+            plotted.plot(x, y, pen='r')
+            plotted.showGrid(x=True, y=True)
+            self.scene.addWidget(plotted)
+            self.tabling(table)
+        else:
+            print('false')
     def rowselect(self):
             ind=self.tableit.selectionModel().selectedRows()[0].row()
             self.run(self.data[ind][0],self.data[ind][1],self.data[ind][2],self.data[ind][3],self.data[ind][4],self.data[ind][5])
@@ -172,7 +210,6 @@ class UI(QMainWindow):
 
         except:
             self.messages.setText('unable to parse data...check your file')
-
     def tabling(self,data):
         self.model =TableModel(data)
         self.tableit.setModel(self.model)
