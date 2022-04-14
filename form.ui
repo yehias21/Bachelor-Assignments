@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1234</width>
-    <height>755</height>
+    <width>1223</width>
+    <height>767</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,19 +16,6 @@
   <property name="styleSheet">
    <string notr="true"/>
   </property>
-  <widget class="QPushButton" name="BTcompute">
-   <property name="geometry">
-    <rect>
-     <x>1000</x>
-     <y>680</y>
-     <width>141</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Compute</string>
-   </property>
-  </widget>
   <widget class="QGraphicsView" name="graphicsView">
    <property name="geometry">
     <rect>
@@ -50,6 +37,12 @@
      <width>481</width>
      <height>501</height>
     </rect>
+   </property>
+   <property name="selectionMode">
+    <enum>QAbstractItemView::SingleSelection</enum>
+   </property>
+   <property name="selectionBehavior">
+    <enum>QAbstractItemView::SelectRows</enum>
    </property>
   </widget>
   <widget class="QComboBox" name="CBmethods">
@@ -91,7 +84,7 @@
    <property name="geometry">
     <rect>
      <x>100</x>
-     <y>660</y>
+     <y>720</y>
      <width>113</width>
      <height>25</height>
     </rect>
@@ -101,7 +94,7 @@
    <property name="geometry">
     <rect>
      <x>322</x>
-     <y>660</y>
+     <y>720</y>
      <width>113</width>
      <height>25</height>
     </rect>
@@ -114,7 +107,7 @@
    <property name="geometry">
     <rect>
      <x>322</x>
-     <y>590</y>
+     <y>650</y>
      <width>113</width>
      <height>25</height>
     </rect>
@@ -127,7 +120,7 @@
    <property name="geometry">
     <rect>
      <x>102</x>
-     <y>590</y>
+     <y>650</y>
      <width>113</width>
      <height>25</height>
     </rect>
@@ -169,7 +162,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>590</y>
+     <y>650</y>
      <width>51</width>
      <height>21</height>
     </rect>
@@ -182,7 +175,7 @@
    <property name="geometry">
     <rect>
      <x>222</x>
-     <y>590</y>
+     <y>650</y>
      <width>91</width>
      <height>21</height>
     </rect>
@@ -195,7 +188,7 @@
    <property name="geometry">
     <rect>
      <x>230</x>
-     <y>660</y>
+     <y>720</y>
      <width>67</width>
      <height>21</height>
     </rect>
@@ -208,7 +201,7 @@
    <property name="geometry">
     <rect>
      <x>22</x>
-     <y>650</y>
+     <y>710</y>
      <width>81</width>
      <height>41</height>
     </rect>
@@ -227,7 +220,7 @@
    <property name="geometry">
     <rect>
      <x>460</x>
-     <y>590</y>
+     <y>650</y>
      <width>111</width>
      <height>21</height>
     </rect>
@@ -239,8 +232,8 @@
   <widget class="QLineEdit" name="LEfilepath">
    <property name="geometry">
     <rect>
-     <x>100</x>
-     <y>720</y>
+     <x>810</x>
+     <y>540</y>
      <width>341</width>
      <height>25</height>
     </rect>
@@ -255,8 +248,8 @@
   <widget class="QLabel" name="label_6">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>720</y>
+     <x>730</x>
+     <y>540</y>
      <width>67</width>
      <height>21</height>
     </rect>
@@ -265,24 +258,11 @@
     <string>File path:</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="BTreadfile">
-   <property name="geometry">
-    <rect>
-     <x>820</x>
-     <y>680</y>
-     <width>141</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Read-Iterate</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_7">
    <property name="geometry">
     <rect>
      <x>460</x>
-     <y>660</y>
+     <y>720</y>
      <width>81</width>
      <height>20</height>
     </rect>
@@ -291,21 +271,24 @@
     <string>Exact root:</string>
    </property>
   </widget>
-  <widget class="QTextEdit" name="textEdit">
+  <widget class="QTextEdit" name="TEmessages">
    <property name="geometry">
     <rect>
      <x>730</x>
-     <y>570</y>
+     <y>610</y>
      <width>481</width>
      <height>101</height>
     </rect>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="QLabel" name="label_8">
    <property name="geometry">
     <rect>
      <x>730</x>
-     <y>540</y>
+     <y>580</y>
      <width>91</width>
      <height>21</height>
     </rect>
@@ -344,7 +327,7 @@
    <property name="geometry">
     <rect>
      <x>600</x>
-     <y>590</y>
+     <y>640</y>
      <width>81</width>
      <height>21</height>
     </rect>
@@ -357,7 +340,7 @@
    <property name="geometry">
     <rect>
      <x>600</x>
-     <y>660</y>
+     <y>710</y>
      <width>81</width>
      <height>21</height>
     </rect>
@@ -370,7 +353,7 @@
    <property name="geometry">
     <rect>
      <x>600</x>
-     <y>720</y>
+     <y>580</y>
      <width>81</width>
      <height>21</height>
     </rect>
@@ -383,13 +366,81 @@
    <property name="geometry">
     <rect>
      <x>460</x>
-     <y>720</y>
+     <y>580</y>
      <width>51</width>
      <height>20</height>
     </rect>
    </property>
    <property name="text">
     <string>Time:</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="CBisread">
+   <property name="geometry">
+    <rect>
+     <x>520</x>
+     <y>540</y>
+     <width>131</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Read from file</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="BTcompute">
+   <property name="geometry">
+    <rect>
+     <x>1010</x>
+     <y>720</y>
+     <width>131</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Compute/Iterate</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="BTreadfile">
+   <property name="geometry">
+    <rect>
+     <x>820</x>
+     <y>720</y>
+     <width>131</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Read</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="LEfunc">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>580</y>
+     <width>341</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="placeholderText">
+    <string>Enter univariante function of 'x'!</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_12">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>580</y>
+     <width>67</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Function</string>
    </property>
   </widget>
  </widget>
