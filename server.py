@@ -1,16 +1,33 @@
 import time, socket, threading, webbrowser
 from httphandler import *
-def client_handler(client):
+from concurrent.futures import ThreadPoolExecutor
+print_lock = threading.Lock()
+qLock=threading.Lock()
+def client_handler(client,exe):
+    time_started = time.time()
+    parsed={}
     while True:
         data=recv(client)
-        parsed = parser(data,True)
-        response=requesthandle(parsed)
-        client.send(response)
-        if parsed['protocol'] == 'HTTP/1.1':
+        if data!=b'':
+            arr = parser(data,True)
+            for parsed in arr:
+                response=requesthandle(parsed)
+                client.send(response)
+        if parsed['protocol'] == 'HTTP/1.0':
             client.close()
-            print(f"({time.ctime()}) - {parsed['method']} - {parsed['uri']}")
+            with print_lock:
+                print(f"({time.ctime()}) - {parsed['method']} - {parsed['uri']}")
             break
-            #todo: timeout handling heuristics
+        elif parsed['protocol'] == 'HTTP/1.1':
+            with qLock:
+                if time.time() > time_started + 5/max(1,exe._work_queue.qsize()-8) :
+                    client.close()
+                    with print_lock:
+                        print(f"({time.ctime()}) - {parsed['method']} - {parsed['uri']}")
+                    break
+                elif data!=b"":
+                    time_started = time.time()
+
 if __name__ == '__main__':
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         host = '127.0.0.1'
@@ -18,6 +35,10 @@ if __name__ == '__main__':
         s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         s.bind((host, port))
         s.listen()
-        while True:
-            client, addr = s.accept()
-            threading.Thread(target=client_handler, args=(client,)).start()
+        count=1
+        with ThreadPoolExecutor(max_workers=8) as executor:
+            while True:
+                client, addr = s.accept()
+                print(count)
+                count+=1
+                executor.submit(client_handler,client,executor)

@@ -1,5 +1,4 @@
 import os, time, datetime, json
-
 def load_config(filename):
     '''Open config file in JSON format'''
     with open(filename) as f:
@@ -46,30 +45,55 @@ def requesthandle(request):
             header=header.encode('utf-8')
             return header
     elif request['method']=='POST':
-            with open(request['uri'],'wb') as f:
+        if request['data']!=b'':
+            with open('dataServer'+'/'+request['uri'],'wb') as f:
                 f.write(request['data'])
-                header =  build_header('200', request['uri']).replace('HTTP/1.x', request['protocol'])
-                header.encode('utf-8')
-                return header
-
+                header = build_header('200', request['uri'])
+                header = header.replace('HTTP/1.x', request['protocol'])
+                return header.encode('utf-8')
+        else:
+            header = build_header('404', request['uri'])
+            header = header.replace('HTTP/1.x', request['protocol'])
+            return header.encode('utf-8')
 def parser(request,isrequest):
     parsed = {}
-    msg=request.split(b'\r\n\r\n')
-    buff=msg[0].decode('utf-8').split('\r\n')
-    line=buff[0].split()
-    if isrequest:
-        parsed['method']=line[0]
-        parsed['uri']=line[1][1:]
-        parsed['protocol'] = line[-1]
+    if request.count(b'\r\n\r\n')==1:
+        msg=request.split(b'\r\n\r\n')
+        buff=msg[0].decode('utf-8').split('\r\n')
+        line=buff[0].split()
+        if isrequest:
+            parsed['method']=line[0]
+            parsed['uri']=line[1][1:]
+            parsed['protocol'] = line[-1]
+        else:
+            parsed['protocol'] = line[0]
+            parsed['status'] = line[1]
+            parsed['message'] = " ".join(line[2:])
+        for head in buff[1:]:
+            head=head.split(":")
+            parsed[head[0]] = head[1].replace(" ", "")
+        parsed['data']=msg[1]
+        return [parsed]
     else:
-        parsed['protocol'] = line[0]
-        parsed['status'] = line[1]
-        parsed['message'] = line[-1]
-    for head in buff[1:]:
-        head=head.split(":")
-        parsed[head[0]] = head[1].replace(" ", "")
-    parsed['data']=msg[1]
-    return parsed
+        splitted = request.split(b'\r\n\r\n')
+        ar=[]
+        parsed={}
+        for msg in splitted[:-1]:
+            buff = msg.decode('utf-8').split('\r\n')
+            line = buff[0].split()
+            if isrequest:
+                parsed['method'] = line[0]
+                parsed['uri'] = line[1][1:]
+                parsed['protocol'] = line[-1]
+            else:
+                parsed['protocol'] = line[0]
+                parsed['status'] = line[1]
+                parsed['message'] = " ".join(line[2:])
+            for head in buff[1:]:
+                head = head.split(":")
+                parsed[head[0]] = head[1].replace(" ", "")
+            ar.append(parsed)
+    return ar
 
 def recv(the_socket, timeout=0.5):
     the_socket.setblocking(0)
@@ -90,12 +114,15 @@ def recv(the_socket, timeout=0.5):
         except:
             pass
     return b''.join(total_data)
-def generaterequest(command,host,filepath='',protocol='HTTP/1.1'):
+def generaterequest(command,host,filepath='dataClient',protocol='HTTP/1.1'):
     method,file=command.split()
     if method.lower()=='get':
-        request=f"GET /{file} {protocol}\r\nHost: {host}\r\n"
+        request=f"GET /{file} {protocol}\r\nHost: {host}\r\n\r\n"
         return request.encode('utf-8')
     elif method.lower()=='post':
-        request=f"POST /{file} {protocol}\r\nHost: {host}\r\n"
+        request=f"POST /{file} {protocol}\r\nHost: {host}\r\n\r\n"
         data,_=open_static(filepath+'/'+file)
+        if data=='':
+            print(f'File: {file} not found!')
+            return ''
         return request.encode('utf-8')+data
