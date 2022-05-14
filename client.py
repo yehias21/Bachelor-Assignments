@@ -1,12 +1,5 @@
+from httphandler import *
 from socket import *
-def generaterequest(command):
-    # todo: implement request generator
-    pass
-def recv(sock):
-    # todo: implemetn recv
-    pass
-def process_response(response):
-    pass
 def client():
     host = '127.0.0.1'
     port = 8080
@@ -20,14 +13,18 @@ def client():
                     s.connect((host, port))
                     request=generaterequest(command)
                     s.send(request)
-                    response=recv(s).decode('utf-8')
-                    print(response)
-                    s.close
+                    response=recv(s)
+                    parsed=parser(response,False)
+                    if command.lower().find('get',0,4):
+                        with open(parsed['uri'], 'wb') as f:
+                            f.write(parsed['data'])
+                    print(parsed['protocol']+' '+parsed['status']+' '+parsed['message'])
+                    s.close()
             elif line[0]=='HTTP/1.1':
                 for command in line[1:]:
                     request = generaterequest(command)
                     s.send(request)
                 for command in line[1:]:
-                    response = recv(s).decode('utf-8')
-                    process_response(response)
+                    response = recv(s)
+                    parsed=parser(response,False)
                 s.close()

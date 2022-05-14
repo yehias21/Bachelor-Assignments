@@ -11,3 +11,28 @@ def add(x,y):
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
 # See PyCharm help at https://www.jetbrains.com/help/pycharm
+# def iscomplete(data):
+#     buff=data.split(b'\r\n\r\n')
+#     size=-1
+#     x=re.search(b'Content-Length: (.*)\r\n', data)
+#     if x is not None:
+#         size=int(x.group(1))
+#         if size==0:
+#             return -1
+#         elif size>len(buff[1]):
+#             return size-len(buff[1])
+#         else:
+#             return 0
+#     else:
+#         return 0
+# def recv(clsck):
+#     # make socket non blocking
+#     buffSize=1024
+#     data = b''
+#     data+=(clsck.recv(buffSize))
+#     if iscomplete(data) == 0:
+#         return data
+#     else:
+#         buffSize=iscomplete(data)
+#         data += clsck.recv(buffSize)
+#         return data
