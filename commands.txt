@@ -1,3 +1,1 @@
-HTTP/1.0;get lol.txt;get lol1.html;post lol2.png
-HTTP/1.1;get lol.txt;post lol1.html;get lol2.png
 HTTP/1.1p;get lol.txt;get lol1.html;get lol2.png

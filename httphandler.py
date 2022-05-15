@@ -1,4 +1,4 @@
-import os, time, datetime, json
+import os, time, datetime, json,logging
 def load_config(filename):
     '''Open config file in JSON format'''
     with open(filename) as f:
@@ -9,7 +9,7 @@ http_status  = config['http_status']
 content_type = config['content_type']
 sep          = config['sep']
 
-def open_static(filename, mode='r'):
+def open_static(filename, mode='rb'):
     '''Opens static file and returns it\'s binary representation'''
     try:
         with open(filename, mode) as f:
@@ -33,7 +33,7 @@ def build_header(status, file_type, last_modified='',length=0):
         + modified + sep
 def requesthandle(request):
     if request['method'] == 'GET':
-        body, last_modified = open_static(request['uri'], 'rb')
+        body, last_modified = open_static('dataServer'+'/'+request['uri'], 'rb')
         if body:
             header = build_header('200', request['uri'], last_modified,len(body))
             header = header.replace('HTTP/1.x', request['protocol'])
@@ -46,9 +46,14 @@ def requesthandle(request):
             return header
     elif request['method']=='POST':
         if request['data']!=b'':
-            with open('dataServer'+'/'+request['uri'],'wb') as f:
-                f.write(request['data'])
-                header = build_header('200', request['uri'])
+            try:
+                with open('dataServer'+'/'+request['uri'],'wb') as f:
+                    f.write(request['data'])
+                    header = build_header('200', request['uri'])
+                    header = header.replace('HTTP/1.x', request['protocol'])
+                    return header.encode('utf-8')
+            except:
+                header = build_header('404', request['uri'])
                 header = header.replace('HTTP/1.x', request['protocol'])
                 return header.encode('utf-8')
         else:
@@ -64,6 +69,7 @@ def parser(request,isrequest):
         if isrequest:
             parsed['method']=line[0]
             parsed['uri']=line[1][1:]
+            if line[1]=='/': parsed['uri']='index.html'
             parsed['protocol'] = line[-1]
         else:
             parsed['protocol'] = line[0]
@@ -77,8 +83,9 @@ def parser(request,isrequest):
     else:
         splitted = request.split(b'\r\n\r\n')
         ar=[]
-        parsed={}
-        for msg in splitted[:-1]:
+        for count,msg in enumerate(splitted[:-1]):
+            msg=splitted[count]
+            parsed = {}
             buff = msg.decode('utf-8').split('\r\n')
             line = buff[0].split()
             if isrequest:
@@ -92,6 +99,9 @@ def parser(request,isrequest):
             for head in buff[1:]:
                 head = head.split(":")
                 parsed[head[0]] = head[1].replace(" ", "")
+            if not isrequest and int(parsed.get('Content-Length','0'))>0:
+                parsed['data']=splitted[count+1][0:int(parsed['Content-Length'])]
+                splitted[count + 1]=splitted[count+1][int(parsed['Content-Length']):]
             ar.append(parsed)
     return ar
 
@@ -126,3 +136,11 @@ def generaterequest(command,host,filepath='dataClient',protocol='HTTP/1.1'):
             print(f'File: {file} not found!')
             return ''
         return request.encode('utf-8')+data
+def clientCache(cache,request,file):
+    if request.get('data',b'')!=b'':
+        try:
+            with open('dataClient'+ '/' + file, 'wb') as f:
+                f.write(request['data'])
+            cache[file]=True
+        except:
+           pass

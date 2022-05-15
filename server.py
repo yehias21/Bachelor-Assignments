@@ -13,17 +13,19 @@ def client_handler(client,exe):
             for parsed in arr:
                 response=requesthandle(parsed)
                 client.send(response)
+                with print_lock:
+                    print(f"{parsed['method']} /{parsed['uri']} {parsed['protocol']} - tid: {threading.current_thread().ident}")
         if parsed['protocol'] == 'HTTP/1.0':
             client.close()
             with print_lock:
-                print(f"({time.ctime()}) - {parsed['method']} - {parsed['uri']}")
+                print(f"time: {round(time.time()-time_started,2)}")
             break
         elif parsed['protocol'] == 'HTTP/1.1':
             with qLock:
                 if time.time() > time_started + 5/max(1,exe._work_queue.qsize()-8) :
                     client.close()
                     with print_lock:
-                        print(f"({time.ctime()}) - {parsed['method']} - {parsed['uri']}")
+                        print(f"Thread({threading.current_thread().ident}) finished in: {round(time.time() - time_started, 2)}")
                     break
                 elif data!=b"":
                     time_started = time.time()
@@ -39,6 +41,4 @@ if __name__ == '__main__':
         with ThreadPoolExecutor(max_workers=8) as executor:
             while True:
                 client, addr = s.accept()
-                print(count)
-                count+=1
                 executor.submit(client_handler,client,executor)
