@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset ="utf-8">
+        <title>Login / SignUp</title>
+        <link rel="stylesheet" href="./src/main.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/core.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/md5.js"></script>     
+    </head>
+    <body>
+        <!-- NAMING CONVENTION:USING BLOCK ELEMENT MODIFIER CSS -->
+        <div class="container">
+            <form class="form" id="dashboard">
+                <h1 class="form__title" id="username"></h1>
+                <p class="form__text">
+                    <a href="index.html" class="form__link">LOGOUT</a>
+                </p>
+        </div>
+     
+    </body>
+    <script> 
+     function getParamURL(param) {
+    return decodeURIComponent((new RegExp('[?|&]' + param + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
+   }
+    var username = getParamURL('username');
+    username='Welcome'.concat( ' ',username);
+    document.getElementById("username").innerText= username;
+    </script>
+</html>
+ 
