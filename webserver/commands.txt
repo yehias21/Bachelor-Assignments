@@ -1,0 +1,3 @@
+HTTP/1.0;get text.txt;get index.html;post image.png
+HTTP/1.1;get text.txt;post 404.html;get image.png
+HTTP/1.1p;get sample1.html;get sample2.html;get lol.png
