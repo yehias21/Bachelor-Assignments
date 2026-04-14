@@ -19,3 +19,4 @@ Consolidated archive of bachelor-era coursework and side projects. Each subdirec
 | &nbsp;&nbsp;[sql/SqlQueries/](sql/SqlQueries/) | Assignment 2 queries |
 | &nbsp;&nbsp;[sql/SQL_assignment/](sql/SQL_assignment/) | Basic SQL DDL operations |
 | &nbsp;&nbsp;[sql/SQL-assignment3/](sql/SQL-assignment3/) | SQL assignment 3 |
+| [Replacement_algorithms/](Replacement_algorithms/) | Page replacement algorithms assignment |
