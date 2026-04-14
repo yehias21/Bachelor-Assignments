@@ -1,0 +1,12 @@
+1- Deleting the referenced row if cascading deletes is turned on it will delete 
+all the row in second table referencing this row, else it will give me error.
+** DELETE FROM EMPLOYEE WHERE ssn=2;
+MySQL said: Documentation
+#1451 - Cannot delete or update a parent row: a foreign key constraint fails (`COMPANY`.`DEPARTMENT`, CONSTRAINT `DEPARTMENT_ibfk_1` FOREIGN KEY (`mgr_ssn`) REFERENCES `EMPLOYEE` (`ssn`))**
+
+2- An error take place: column "Dno" referenced in foreign key constraint does 
+not exist
+**#1452 - Cannot add or update a child row: a foreign key constraint fails (`COMPANY`.`PROJECT`, CONSTRAINT `PROJECT_ibfk_1` FOREIGN KEY (`Dno`) REFERENCES `DEPARTMENT` (`Dnumber`))**
+
+3- We can insert rows first in the 2 tables than alter the foreign key constrains
+** #1452 - Cannot add or update a child row: a foreign key constraint fails (`COMPANY`.`#sql-18cc_120`, CONSTRAINT `#sql-18cc_120_ibfk_1` FOREIGN KEY (`Dno`) REFERENCES `DEPARTMENT` (`Dnumber`))**
