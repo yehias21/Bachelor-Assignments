@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Widget</class>
+ <widget class="QWidget" name="Widget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1223</width>
+    <height>767</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Widget</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QGraphicsView" name="graphicsView">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>30</y>
+     <width>700</width>
+     <height>500</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QTableView" name="tableView">
+   <property name="geometry">
+    <rect>
+     <x>730</x>
+     <y>30</y>
+     <width>481</width>
+     <height>501</height>
+    </rect>
+   </property>
+   <property name="selectionMode">
+    <enum>QAbstractItemView::SingleSelection</enum>
+   </property>
+   <property name="selectionBehavior">
+    <enum>QAbstractItemView::SelectRows</enum>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="CBmethods">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>540</y>
+     <width>171</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>Bisection Method</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Regula Falsi Method</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Fixed Point Method</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Newton Method</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Secant Method</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLineEdit" name="LElowbound">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>720</y>
+     <width>113</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="LEupbound">
+   <property name="geometry">
+    <rect>
+     <x>322</x>
+     <y>720</y>
+     <width>113</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="placeholderText">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="LEmaxiter">
+   <property name="geometry">
+    <rect>
+     <x>322</x>
+     <y>650</y>
+     <width>113</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="placeholderText">
+    <string>50</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="LEeps">
+   <property name="geometry">
+    <rect>
+     <x>102</x>
+     <y>650</y>
+     <width>113</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="placeholderText">
+    <string>1e-5</string>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="RBfastmode">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>540</y>
+     <width>112</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Fast mode</string>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="RBstepmode">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>540</y>
+     <width>112</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Step mode</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>650</y>
+     <width>51</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Epsilon</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>222</x>
+     <y>650</y>
+     <width>91</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Max iteration</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>710</y>
+     <width>71</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Up bound g(x)</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>22</x>
+     <y>710</y>
+     <width>81</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Low bound init guess</string>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+   <property name="indent">
+    <number>-6</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>460</x>
+     <y>650</y>
+     <width>111</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Estimated root:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="LEfilepath">
+   <property name="geometry">
+    <rect>
+     <x>810</x>
+     <y>540</y>
+     <width>341</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="placeholderText">
+    <string>Enter path!</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>730</x>
+     <y>540</y>
+     <width>67</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>File path:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_7">
+   <property name="geometry">
+    <rect>
+     <x>460</x>
+     <y>720</y>
+     <width>81</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Exact root:</string>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="TEmessages">
+   <property name="geometry">
+    <rect>
+     <x>730</x>
+     <y>610</y>
+     <width>481</width>
+     <height>101</height>
+    </rect>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_8">
+   <property name="geometry">
+    <rect>
+     <x>730</x>
+     <y>580</y>
+     <width>91</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>MESSAGES:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_9">
+   <property name="geometry">
+    <rect>
+     <x>730</x>
+     <y>10</y>
+     <width>71</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Iterations:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_10">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>67</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Graph:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="Lestimatedroot">
+   <property name="geometry">
+    <rect>
+     <x>580</x>
+     <y>650</y>
+     <width>101</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="Lexactroot">
+   <property name="geometry">
+    <rect>
+     <x>580</x>
+     <y>720</y>
+     <width>101</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="Ltime">
+   <property name="geometry">
+    <rect>
+     <x>580</x>
+     <y>580</y>
+     <width>101</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_11">
+   <property name="geometry">
+    <rect>
+     <x>460</x>
+     <y>580</y>
+     <width>51</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Time:</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="CBisread">
+   <property name="geometry">
+    <rect>
+     <x>520</x>
+     <y>540</y>
+     <width>131</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Read from file</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="BTcompute">
+   <property name="geometry">
+    <rect>
+     <x>1010</x>
+     <y>720</y>
+     <width>131</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Compute/Iterate</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="BTreadfile">
+   <property name="geometry">
+    <rect>
+     <x>820</x>
+     <y>720</y>
+     <width>131</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Read</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="LEfunc">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>580</y>
+     <width>341</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="placeholderText">
+    <string>Enter univariante function of 'x'!</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_12">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>580</y>
+     <width>67</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Function</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
